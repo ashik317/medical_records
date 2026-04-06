@@ -1,0 +1,124 @@
+# ───────────────────────────────
+# PyCharm / JetBrains IDEs
+# ───────────────────────────────
+.idea/
+.idea/**
+*.iml
+*.iws
+*.ipr
+*.ids
+out/
+.idea_modules/
+atlassian-ide-plugin.xml
+cmake-build-*/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries/
+.idea/shelf/
+.idea/contentModel.xml
+.idea/dataSources/
+.idea/dataSources.local.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+.idea/gradle.xml
+.idea/libraries/
+.idea/jarRepositories.xml
+.idea/runConfigurations/
+*.xml
+!**/fixtures/*.xml
+!**/templates/*.xml
+
+# ───────────────────────────────
+# Environment
+# ───────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ───────────────────────────────
+# Python
+# ───────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+*.spec
+
+# ───────────────────────────────
+# Virtual environments
+# ───────────────────────────────
+venv/
+env/
+.venv/
+ENV/
+.virtualenv/
+
+# ───────────────────────────────
+# Django
+# ───────────────────────────────
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+/static/
+/media/
+staticfiles/
+
+# ───────────────────────────────
+# Docker
+# ───────────────────────────────
+postgres_data/
+redis_data/
+
+# ───────────────────────────────
+# Testing & Coverage
+# ───────────────────────────────
+.coverage
+htmlcov/
+.pytest_cache/
+coverage.xml
+*.cover
+.hypothesis/
+nosetests.xml
+test-results/
+
+# ───────────────────────────────
+# OS files
+# ───────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ───────────────────────────────
+# Logs & temp
+# ───────────────────────────────
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# ───────────────────────────────
+# Compiled / binary
+# ───────────────────────────────
+*.pyc
+*.pyd
+*.dll
+*.exe
+*.out
