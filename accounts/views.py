@@ -1,18 +1,49 @@
 from django.contrib.auth import get_user_model
-from django.shortcuts import render
-from rest_framework import permissions
-from rest_framework.generics import ListCreateAPIView, CreateAPIView,ListAPIView
-from rest_framework.response import Response
+from rest_framework import filters
+from rest_framework.generics import ListCreateAPIView, CreateAPIView, ListAPIView, RetrieveAPIView, \
+    RetrieveUpdateAPIView
+from rest_framework.permissions import IsAuthenticated
 
 from accounts.serializers import RegisterSerializer
 User = get_user_model()
 
-class UserRegisterListApiViews(ListCreateAPIView):
+class UserListApiView(ListAPIView):
     serializer_class = RegisterSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsAuthenticated]
+    filter_backends = [filters.SearchFilter]
+    search_fields = [
+        "first_name",
+        "middle_name",
+        "last_name",
+        "email",
+        "phone",
+        "role",
+        "date_of_birth",
+    ]
+    def get_queryset(self):
+        return User.objects.all()
+
+
+class UserRegisterListApiView(CreateAPIView):
+    serializer_class = RegisterSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return User.objects.all()
 
     def perform_create(self, serializer):
+        serializer.save()
+
+class UserDetailApiView(RetrieveUpdateAPIView):
+    serializer_class = RegisterSerializer
+    permission_classes = [IsAuthenticated]
+
+    lookup_field = "alias"
+
+    def get_object(self):
+        return User.objects.get(
+            alias=self.kwargs['alias']
+        )
+
+    def perform_update(self, serializer):
         serializer.save()

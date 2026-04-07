@@ -15,22 +15,32 @@ services:
       timeout: 5s
       retries: 5
 
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   web:
     build: .
     command: >
       sh -c "python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+             uvicorn medical_records.asgi:application --host 0.0.0.0 --port 8000 --reload"
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     depends_on:
       db:
-        condition: service_healthy
+        condition: service_healthy   # ✅ waits until postgres is ready
+      redis:
+        condition: service_healthy   # ✅ waits until redis is ready
     env_file:
       - .env
-    environment:
-      DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_NAME}
 
 volumes:
   postgres_data:
