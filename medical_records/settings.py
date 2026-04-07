@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'drf_spectacular',
+    'rest_framework.authtoken',
     #apps
     'accounts',
     'patients',
@@ -50,10 +51,25 @@ INSTALLED_APPS = [
     'records',
     'appointments',
     'common',
+    'channels',
+    "notifications",
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=550),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
 }
 
 SPECTACULAR_SETTINGS = {
@@ -90,8 +106,16 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'medical_records.wsgi.application'
-
+# WSGI_APPLICATION = 'medical_records.wsgi.application'
+ASGI_APPLICATION = "medical_records.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis", 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases

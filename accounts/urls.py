@@ -1,10 +1,19 @@
 from django.urls import path
-from accounts.views import UserRegisterListApiViews
+from accounts.views import UserRegisterListApiView, UserListApiView, UserDetailApiView
 
 urlpatterns = [
     path(
         'register/',
-        UserRegisterListApiViews.as_view(),
+        UserRegisterListApiView.as_view(),
         name='register'
+    ),
+    path(
+        'user/',
+        UserListApiView.as_view(),
+        name='register'
+    ),
+    path(
+        'user/<uuid:alias>/',
+        UserDetailApiView.as_view(),
     )
 ]
